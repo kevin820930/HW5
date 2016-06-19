@@ -53,7 +53,6 @@ int main()
     for(n=0; n<20000; n++) {
         printf("%d ",ans3[n]);
     }*/
-    printf("\n");
 }
 
 void initialmerge(int src1[], int src2[], int dst[], int n)

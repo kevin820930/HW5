@@ -4,27 +4,38 @@
 #include <time.h>
 #include <assert.h>
 #include <unistd.h>
-#include<limits.h>
-void initialmerge(int src1[],int src2[],int dst[],int n);
+#include <limits.h>
 void improvemerge(int src1[],int src2[],int dst[],int n);
-void teachermerge(int src1[],int src2[],int dst[],int n);
 void mergesort(int initial[],int lengh);
 int main()
 {
-    int n;
-    int input[9]= {20,56,31,9,42,12,49,65,INT_MAX}; //last number is for judge not data
+    FILE *output;
+    output = fopen("opt.txt", "w");
+    int n,count;
+    int input[20001]= {0}; //last number is for judge not data
+    for(n=0;n<20000;n++){
+    input[n]=(rand() % 50000);
+    }
+    input[20000]=INT_MAX;
     int lengh=sizeof(input)/4;
-    printf("ans of initial:");
-    for(n=0; n<8; n++) {
-        printf("%d ",input[n]);
+    fprintf(output,"initial:");
+    for(n=0; n<20000; n++) {
+        fprintf(output,"%d ",input[n]);
+        fprintf(output,"\n");
     }
-    printf("\n");
-    mergesort(input,lengh);
-    printf("ans of initial:");
-    for(n=0; n<8; n++) {
-        printf("%d ",input[n]);
+    fprintf(output,"\n");
+    unsigned long start = clock();
+    for(count=0; count<1000; count++)
+        mergesort(input,lengh);
+    unsigned long end = clock();
+    fprintf(output,"after mergesort:");
+    for(n=0; n<20000; n++) {
+        fprintf(output,"%d ",input[n]);
+    fprintf(output,"\n");
     }
-    printf("\n");
+    fprintf(output,"\n");
+    printf("Time(repeat 1000)=%1.3lf ms\n",(double)(end-start)/CLOCKS_PER_SEC*1000);
+    fclose(output);
 }
 
 void mergesort(int initial[],int lengh)
